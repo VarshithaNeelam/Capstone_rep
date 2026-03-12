@@ -18,4 +18,4 @@ PARTITION BY customer_id
 ORDER BY last_modified_date DESC
 )=1
  
-{% endsnapshot %}
+{% endsnapshot %} 
