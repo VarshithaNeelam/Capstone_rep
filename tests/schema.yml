@@ -1,0 +1,110 @@
+version: 2
+ 
+models:
+ 
+  - name: silver_customer
+    description: Cleaned customer data from snapshot layer
+    columns:
+ 
+      - name: customer_id
+        description: Unique identifier for customer
+        tests:
+          - not_null
+          - unique
+ 
+      - name: email
+        description: Customer email
+ 
+      - name: phone
+        description: Customer phone number
+ 
+ 
+  - name: silver_product
+    description: Cleaned product data
+    columns:
+ 
+      - name: product_id
+        description: Unique product identifier
+        tests:
+          - not_null
+          - unique
+ 
+ 
+  - name: silver_store
+    description: Store dimension data
+    columns:
+ 
+      - name: store_id
+        description: Unique store identifier
+        tests:
+          - not_null
+          - unique
+ 
+ 
+  - name: silver_supplier
+    description: Supplier dimension data
+    columns:
+ 
+      - name: supplier_id
+        description: Unique supplier identifier
+        tests:
+          - not_null
+          - unique
+ 
+ 
+  - name: silver_campaign
+    description: Marketing campaign information
+    columns:
+ 
+      - name: campaign_id
+        description: Unique campaign identifier
+        tests:
+          - not_null
+          - unique
+ 
+ 
+  - name: silver_orders
+    description: Order level data (one row per order)
+    columns:
+ 
+      - name: order_id
+        description: Unique order identifier
+        tests:
+          - not_null
+          - unique
+ 
+      - name: customer_id
+        description: Customer placing the order
+        tests:
+          - not_null
+          - relationships:
+              to: ref('silver_customer')
+              field: customer_id
+ 
+      - name: store_id
+        description: Store where order was placed
+        tests:
+          - relationships:
+              to: ref('silver_store')
+              field: store_id
+ 
+ 
+  - name: silver_orders_items
+    description: Product level details within each order
+    columns:
+ 
+      - name: order_id
+        description: Order identifier
+        tests:
+          - not_null
+          - relationships:
+              to: ref('silver_orders')
+              field: order_id
+ 
+      - name: product_id
+        description: Product in the order
+        tests:
+          - not_null
+          - relationships:
+              to: ref('silver_product')
+              field: product_id
