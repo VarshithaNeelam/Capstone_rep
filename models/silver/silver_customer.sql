@@ -40,8 +40,6 @@ CASE
     ELSE NULL
 END AS valid_phone,
  
-/* BIRTHDATE FORMAT STANDARDIZATION */
- 
 COALESCE(
     TRY_TO_DATE(birth_date,'DD-MM-YYYY'),
     TRY_TO_DATE(birth_date,'YYYY-MM-DD'),
@@ -84,7 +82,7 @@ final_cleaned AS (
 SELECT
 *,
  
-/* AGE CALCULATION USING CLEANED BIRTHDATE */
+/* AGE CALCULATION*/
  
 CASE
     WHEN birth_date IS NOT NULL
