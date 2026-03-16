@@ -93,36 +93,26 @@ CASE
     THEN TRY_TO_NUMBER(current_sales) / TRY_TO_NUMBER(employee_count)
     ELSE NULL
 END AS employee_efficiency,
- 
---Flagging Performance
- 
+  
 CASE
     WHEN TRY_TO_NUMBER(sales_target) > 0
          AND (TRY_TO_NUMBER(current_sales) / TRY_TO_NUMBER(sales_target)) * 100 < 90
     THEN 'Underperforming'
     ELSE 'Normal'
 END AS performance_flag,
- 
---Hours
- 
+  
 INITCAP(TRIM(weekday_hours)) AS weekday_hours,
 INITCAP(TRIM(weekend_hours)) AS weekend_hours,
 INITCAP(TRIM(holiday_hours)) AS holiday_hours,
  
- --Services
- 
 INITCAP(TRIM(services)) AS services,
- 
- 
---Address cleaning
  
 INITCAP(TRIM(street)) AS street,
 INITCAP(TRIM(city)) AS city,
 UPPER(TRIM(state)) AS state,
 UPPER(TRIM(country)) AS country,
 TRIM(zip_code) AS zip_code,
- 
- 
+  
 dbt_valid_from,
 dbt_valid_to,
 dbt_updated_at

@@ -1,26 +1,21 @@
 SELECT
  
-/* Surrogate Key */
-ROW_NUMBER() OVER (ORDER BY product_id) AS productkey,
+{{ dbt_utils.generate_surrogate_key(['product_id']) }} AS productkey,
  
-/* Business Key */
 product_id,
  
-/* Product Details */
 product_name,
 category,
 subcategory,
 brand,
- 
-/* Attributes */
+reorder_level,
+
 color,
 size,
  
-/* Pricing */
 unit_price,
 cost_price,
- 
-/* Supplier Information */
+stock_quantity,
 supplier_id
  
 FROM {{ ref('silver_product') }}

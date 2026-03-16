@@ -16,13 +16,11 @@ sales AS (
  
 SELECT
  
-/* Surrogate Key */
-ROW_NUMBER() OVER (ORDER BY oi.order_id) AS saleskey,
+
+{{ dbt_utils.generate_surrogate_key(['oi.order_id','oi.product_id']) }} AS saleskey,
  
-/* Business Key */
+
 oi.order_id,
- 
-/* Dimension Keys */
  
 c.customerkey,
 p.productkey,
@@ -54,7 +52,6 @@ oi.item_total_amount
 - o.shipping_cost
 ) AS profit_amount,
  
-/* Region */
  
 s.region,
  

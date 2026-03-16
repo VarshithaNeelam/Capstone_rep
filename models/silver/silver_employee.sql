@@ -71,9 +71,7 @@ dbt_valid_from,
 dbt_valid_to,
 dbt_updated_at,
  
-/* =====================
-ROLE STANDARDIZATION
-===================== */
+--role--
  
 CASE
  
@@ -90,9 +88,7 @@ ELSE INITCAP(TRIM(role))
  
 END AS standardized_role,
  
-/* =====================
-EMAIL VALIDATION
-===================== */
+--email--
  
 LOWER(TRIM(email)) AS email,
  
@@ -102,9 +98,7 @@ THEN LOWER(TRIM(email))
 ELSE NULL
 END AS valid_email,
  
-/* =====================
-PHONE VALIDATION
-===================== */
+--phone--
  
 REGEXP_REPLACE(phone,'[^0-9]','') AS phone_number,
  
